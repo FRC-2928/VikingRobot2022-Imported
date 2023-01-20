@@ -209,6 +209,9 @@ public class Drivetrain extends SubsystemBase {
     // -----------------------------------------------------------
     @Override
     public void periodic() {
+        // Update the odometry for either real or simulated robot
+        m_odometry.update(getRotation(), getLeftDistanceMeters(), getRightDistanceMeters());
+        
         //publishTelemetry();     
     }
 
@@ -221,8 +224,8 @@ public class Drivetrain extends SubsystemBase {
         m_leftVelocity = ((encoderTicksToMeters(leftEncoderVelocity)) * 10);
         m_rightVelocity = ((encoderTicksToMeters(rightEncoderVelocity)) * 10);
 
-        // Update the odometry for either real or simulated robot
-        m_odometry.update(getRotation(), leftPosition, rightPosition);
+        // // Update the odometry for either real or simulated robot
+        // m_odometry.update(getRotation(), leftPosition, rightPosition);
    
         m_headingEntry.setDouble(m_yaw);
         m_field2d.setRobotPose(getPose());
@@ -318,11 +321,7 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("left meters per sec", leftMetersPerSecond);
         SmartDashboard.putNumber("right meters per sec", rightMetersPerSecond);
 
-        //test comment 10/16 for auto crash
-        // System.out.println("right" + rightFeedForward); 
-        // System.out.println("left" + leftFeedForward);
-        // m_rightFFEntry.setDouble(rightFeedForward);
-        // m_leftFFEntry.setDouble(leftFeedForward);
+        
         
         // Convert meters per second to encoder ticks per second
         var gearState = m_gearStateSupplier.get();
