@@ -3,8 +3,8 @@ package frc.robot.oi;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.oi.DriverOI;
 
 public class DriverOI {
@@ -19,56 +19,56 @@ public class DriverOI {
     private JoystickButton m_decrementFlywheel;
     private JoystickButton m_toggleFlywheel;
     private JoystickButton m_increaseFlywheelButton;
-    private Button m_turnTurretLeft;
-    private Button m_turnTurretRight;
-    private Button m_shiftButton;
-    private Button m_intakeOutButton;
+    private Trigger m_turnTurretLeft;
+    private Trigger m_turnTurretRight;
+    private Trigger m_shiftButton;
+    private Trigger m_intakeOutButton;
 
     public DriverOI(XboxController controller) {
         m_controller = controller;
 
         m_toggleIntakeMotor = new JoystickButton(m_controller, XboxController.Button.kY.value);
         m_toggleFeederMotor = new JoystickButton(m_controller, XboxController.Button.kY.value);
-        m_shiftButton = new Button(() -> m_controller.getLeftStickButtonPressed());
+        m_shiftButton = new Trigger(() -> m_controller.getLeftStickButtonPressed());
 
         m_incrementFlywheel = new JoystickButton(m_controller, XboxController.Button.kStart.value);
         m_decrementFlywheel = new JoystickButton(m_controller, XboxController.Button.kBack.value);
         m_toggleFlywheel = new JoystickButton(m_controller, XboxController.Button.kY.value);
         
         m_turnTurretToTarget = new JoystickButton(m_controller, XboxController.Button.kRightBumper.value);
-        m_turnTurretRight = new Button(() -> m_controller.getPOV() == 90);
-        m_turnTurretLeft = new Button(() -> m_controller.getPOV() == 270);
+        m_turnTurretRight = new Trigger(() -> m_controller.getPOV() == 90);
+        m_turnTurretLeft = new Trigger(() -> m_controller.getPOV() == 270);
 
-        m_intakeOutButton = new Button(() -> m_controller.getRightTriggerAxis() > 0.1);
+        m_intakeOutButton = new Trigger(() -> m_controller.getRightTriggerAxis() > 0.1);
 
         m_increaseFlywheelButton = new JoystickButton(m_controller, XboxController.Button.kX.value);
     }
 
     // ---------------- Intake ----------------------------
 
-    public Button getToggleIntakeMotorButton(){
+    public Trigger getToggleIntakeMotorButton(){
         return m_toggleIntakeMotor;
     }
 
-    public Button getToggleFeederMotorButton(){
+    public Trigger getToggleFeederMotorButton(){
         return m_toggleFeederMotor;
     }
 
-    public Button getIntakeOutButton(){
+    public Trigger getIntakeOutButton(){
         return m_intakeOutButton;
     }
 
     // ---------------- Flywheel ----------------------------
 
-    public Button getIncrementFlywheelButton(){
+    public Trigger getIncrementFlywheelButton(){
         return m_incrementFlywheel;
     }
 
-    public Button getDecrementFlywheelButton(){
+    public Trigger getDecrementFlywheelButton(){
         return m_decrementFlywheel;
     }
 
-    public Button getToggleFlywheelButton(){
+    public Trigger getToggleFlywheelButton(){
         return m_toggleFlywheel;
     }
 
@@ -82,21 +82,21 @@ public class DriverOI {
         return () -> m_controller.getRightTriggerAxis();
     }
 
-    public Button getTurnTurretLeftButton(){
+    public Trigger getTurnTurretLeftButton(){
         return m_turnTurretLeft;
     }
 
-    public Button getTurnTurretRightButton(){
+    public Trigger getTurnTurretRightButton(){
         return m_turnTurretRight;
     }
 
-    public Button getTurnTurretToTargetButton() {
+    public Trigger getTurnTurretToTargetButton() {
         return m_turnTurretToTarget;
     }
 
     // ---------------- Drivetrain ----------------------------
 
-    public Button getShiftButton(){
+    public Trigger getShiftButton(){
         return m_shiftButton;
     }
 
@@ -104,8 +104,8 @@ public class DriverOI {
         return () -> -m_controller.getLeftY();
     }
 
-    public Button getIsAtHighSpeed() {
-        return new Button(() -> Math.abs(m_controller.getLeftY()) > .85);
+    public Trigger getIsAtHighSpeed() {
+        return new Trigger(() -> Math.abs(m_controller.getLeftY()) > .85);
     }
 
     public DoubleSupplier getRotateSupplier() {
