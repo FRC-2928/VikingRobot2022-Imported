@@ -62,7 +62,8 @@ public class DistanceMap {
         m_ticksPer100ms.put(49, 5400);
         m_ticksPer100ms.put(50, 5400);
         //5000 for low goal with 60% ratio good
-        m_ticksPer100ms.put(0, 3000);
+        //used to be 3000  pre syttende mai
+        m_ticksPer100ms.put(0, 10000);
 
     }
 
