@@ -128,7 +128,7 @@ public class RobotContainer {
         new RunCommand(() -> m_drivetrain.drive(m_driverOI.getMoveSupplier(), m_driverOI.getRotateSupplier()),
             m_drivetrain));
 
-    m_driverOI.getShiftButton().whenPressed(new InstantCommand(m_transmission::toggle, m_transmission));
+    m_driverOI.getShiftButton().onTrue(new InstantCommand(m_transmission::toggle, m_transmission));
 
     m_autoChooser.setDefaultOption("Do Nothing", new SequentialCommandGroup(new WaitCommand(0.1)));
     m_autoChooser.addOption("1-Ball Auto", new SequentialCommandGroup(new WaitCommand(1.0),
@@ -185,10 +185,10 @@ public class RobotContainer {
 
     // Configure button commands
 
-    m_driverOI.getToggleIntakeMotorButton().whenPressed(new ToggleIntakeMotor(m_intake));
-    m_driverOI.getToggleFeederMotorButton().whenPressed(new ToggleFeederMotor(m_intake));
-    m_driverOI.getIsAtHighSpeed().whileHeld(new setLowIntakePower(m_intake, m_drivetrain));
-    m_driverOI.getIntakeOutButton().whileHeld(new HoldIntakeUp(m_intake));
+    m_driverOI.getToggleIntakeMotorButton().onTrue(new ToggleIntakeMotor(m_intake));
+    m_driverOI.getToggleFeederMotorButton().onTrue(new ToggleFeederMotor(m_intake));
+    m_driverOI.getIsAtHighSpeed().onTrue(new setLowIntakePower(m_intake, m_drivetrain));
+    m_driverOI.getIntakeOutButton().whileTrue(new HoldIntakeUp(m_intake));
 
     m_operatorOI.getCloseRamp().whenPressed(new CloseRamp(m_intake));
     m_operatorOI.getOpenRamp().whenPressed(new OpenRamp(m_intake));
@@ -207,9 +207,9 @@ public class RobotContainer {
     m_flywheel.setDefaultCommand(new RunCommand(m_flywheel::setVelocity, m_flywheel));
     
     // Configure button commands
-    m_driverOI.getToggleFlywheelButton().whenPressed(new ToggleFlywheel(m_flywheel));
-    m_driverOI.getIncrementFlywheelButton().whenPressed(new InstantCommand(m_flywheel::increaseFlywheelChange, m_flywheel));
-    m_driverOI.getDecrementFlywheelButton().whenPressed(new InstantCommand(m_flywheel::decreaseFlywheelChange, m_flywheel));
+    m_driverOI.getToggleFlywheelButton().onTrue(new ToggleFlywheel(m_flywheel));
+    m_driverOI.getIncrementFlywheelButton().onTrue(new InstantCommand(m_flywheel::increaseFlywheelChange, m_flywheel));
+    m_driverOI.getDecrementFlywheelButton().onTrue(new InstantCommand(m_flywheel::decreaseFlywheelChange, m_flywheel));
     m_operatorOI.timeToClimb().whenPressed(new InstantCommand(m_flywheel::turnFlywheelOff, m_flywheel));
     m_operatorOI.getIncrementUpperFlywheelButton().whenPressed(new InstantCommand(m_flywheel::increaseUpperFlywheelChange));
     m_operatorOI.getDecrementUpperFlywheelButton().whenPressed(new InstantCommand(m_flywheel::decreaseUpperFlywheelChange));
