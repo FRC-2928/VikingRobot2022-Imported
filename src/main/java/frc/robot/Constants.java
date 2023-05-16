@@ -165,8 +165,10 @@ public final class Constants {
 
         public static final double kEncoderCPR = 2048;
         
-        //velocity in ticks per 100 ms
-        public static final double kIdealVelocity = 6200;
+        //velocity in ticks per 100 ms - switched from 6200 for syttende mai 2023
+        public static final double kIdealVelocity = 10000;
+
+        
     }
 
     
